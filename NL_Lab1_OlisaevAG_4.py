@@ -14,11 +14,6 @@ def F_disc(A, B, operation):
     keys = set(A) | set(B) #
     result = {}
 
-
-NL_Lab1_OlisaevAG_2.py
-NL_Lab1_OlisaevAG_3.py
-NL_Lab1_OlisaevAG_4.py
-
     for x in keys:
         a = A.get(x, 0.0)
         b = B.get(x, 0.0)
