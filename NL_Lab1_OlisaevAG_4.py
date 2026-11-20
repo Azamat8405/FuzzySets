@@ -1,10 +1,9 @@
-import math
 import numpy as np
 import matplotlib.pyplot as plt
 
 # =========== Задача 4
 
-# ДИСКРЕТНЫЙ СЛУЧАЙ
+# дискретный случай
 def F_disc(A, B, operation):
     """
     A, B — словари {элемент: μ}, μ ∈ [0, 1]
@@ -32,14 +31,9 @@ def F_disc(A, B, operation):
     return result
 
 
-# =====================================================
-# НЕПРЕРЫВНЫЙ СЛУЧАЙ
-# =====================================================
+# непрерывный случай
+# ==================
 def F_cont(mA, mB, op):
-    """
-    mA, mB — функции принадлежности m(x)
-    Возвращает новую функцию, реализующую операцию.
-    """
     if op == 'union':
         return lambda x: np.maximum(mA(x), mB(x))
     if op == 'intersection':
@@ -51,29 +45,26 @@ def F_cont(mA, mB, op):
             np.minimum(mA(x), 1 - mB(x)),
             np.minimum(1 - mA(x), mB(x))
         )
-    raise ValueError(f"Неизвестная операция: {op}")
+    raise ValueError(f"Неверная операция {op}")
 
 
-# # дискретный случай
-# # =====================================================
-# A = {"Аня": 0.9, "Борис": 0.6, "Вера": 0.3, "Глеб": 0.8}
-# B = {"Аня": 0.4, "Борис": 0.7, "Вера": 0.9, "Дина": 0.5}
-#
-# print("Дискретные операции:")
-# for op, name in [('union', 'A ∪ B'), ('intersection', 'A ∩ B'),
-#                  ('difference', 'A \\ B'), ('symdiff', 'A ∆ B')]:
-#     print(f"\n{name}:")
-#     for x, mu in sorted(F_disc(A, B, op).items()):
-#         print(f"  {x}: {mu:.2f}")
+# дискретный случай
+# =====================================================
+A = {"Аня": 0.9, "Борис": 0.6, "Вера": 0.3, "Глеб": 0.8}
+B = {"Аня": 0.4, "Борис": 0.7, "Вера": 0.9, "Дина": 0.5}
+
+print("Дискретные операции:")
+for op, name in [('union', 'A ∪ B'), ('intersection', 'A ∩ B'),
+                 ('difference', 'A \\ B'), ('symdiff', 'A ∆ B')]:
+    print(f"\n{name}:")
+    for x, mu in sorted(F_disc(A, B, op).items()):
+        print(f"  {x}: {mu:.2f}")
 
 
-
-# непрерывный случай
+# Непрерывный случай
 # =====================================================
 
-# Две треугольные функции принадлежности
 def tri(x, a, b, c):
-    """Треугольная ФП: 0 при x<=a, 1 в b, 0 при x>=c."""
     x = np.asarray(x, dtype=float)
     y = np.zeros_like(x)
     left  = (x > a) & (x <= b)
